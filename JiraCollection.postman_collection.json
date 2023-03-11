@@ -1,0 +1,171 @@
+{
+	"info": {
+		"_postman_id": "a8da8956-fb0d-499b-8319-86c622a0d317",
+		"name": "JiraCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24679902"
+	},
+	"item": [
+		{
+			"name": "Create Jira Issue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"var res=pm.response.json();\r",
+							"console.log(res.id);\r",
+							"pm.globals.set(\"Issueid\", res.id);\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fields\": {\r\n        \"project\": {\r\n            \"key\": \"TES\"\r\n        },\r\n        \"summary\": \"create issue in RestAPI project\",\r\n        \"description\": \"Creating of an issue using project keys and issue type names using the REST API\",\r\n        \"issuetype\": {\r\n            \"name\": \"Bug\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/{{Between}}/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{Between}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Jira Issue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fields\": {\r\n        \"project\": {\r\n            \"key\": \"TES\"\r\n        },\r\n        \"summary\": \"Update RestAPI project\",\r\n        \"description\": \"Update REST API\",\r\n        \"issuetype\": {\r\n            \"name\": \"Bug\"\r\n        }\r\n    }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/{{Between}}/{{Issueid}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{Between}}",
+						"{{Issueid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Jira Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/{{Between}}/{{Issueid}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{Between}}",
+						"{{Issueid}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "{{pwd}}",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "krishswetha040821@gmail.com",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Between",
+			"value": "rest/api/2/issue",
+			"type": "string"
+		}
+	]
+}
